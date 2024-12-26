@@ -20,6 +20,10 @@ const adapter = new BotFrameworkAdapter({
   appPassword: config.botPassword
 });
 
+console.log("botId:", config.botId);
+console.log("botPassword:", config.botPassword);
+
+
 adapter.onTurnError = async (context, error) => {
   // This check writes out errors to console log .vs. app insights.
   // NOTE: In production environment, you should consider logging this to Azure
