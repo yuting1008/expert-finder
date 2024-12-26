@@ -4,7 +4,6 @@ const config = {
   storageConnectionString: process.env.AZURE_TABLE_STORAGE_CONNECTION_STRING,
   storageTableName: process.env.AZURE_TABLE_TABLE_NAME,
   tenantId: process.env.TENANT_ID,
-  authorityHost: process.env.AUTHORITY_HOST
 };
 
 module.exports = config;

@@ -11,11 +11,9 @@ const { TokenCredentialAuthenticationProvider } = require("@microsoft/microsoft-
 const { ClientSecretCredential } = require("@azure/identity");
 
 const oboAuthConfig = {
-  authorityHost: config.authorityHost,
   clientId: config.botId,
   tenantId: config.tenantId,
   clientSecret: config.botPassword,
-  redirectUri: 'https://token.botframework.com/.auth/web/redirect'
 };
 
 class SearchApp extends TeamsActivityHandler {
@@ -141,7 +139,6 @@ class SearchApp extends TeamsActivityHandler {
         const users = await graphClient
           .api(`/users`)
           .get();
-        // console.log(users.value);
 
         for (const user of users.value){
           const id = user.id;
@@ -284,7 +281,6 @@ class SearchApp extends TeamsActivityHandler {
                 "items": [
                   {
                     "type": "Image",
-                    // "url": "https://pbs.twimg.com/profile_images/3647943215/d7f12830b3c17a5a9e4afcc370e3a37e_400x400.jpeg",
                     "url": "https://pbs.twimg.com/profile_images/3647943215/d7f12830b3c17a5a9e4afcc370e3a37e_400x400.jpeg",
                     "altText": "profileImage",
                     "size": "Small",
@@ -320,12 +316,11 @@ class SearchApp extends TeamsActivityHandler {
               {
                 "title": "Skills:",
                 // "value": `${result.skills._}`
-                "value": `${result.skills}` // error here
+                "value": `${result.skills}`
               },
               {
                 "title": "Location:",
                 // "value": `${result.country._}`,
-                // "value": "Taipei",
                 "value": `${result.officeLocation}`
               },
               {
