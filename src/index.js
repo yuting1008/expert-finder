@@ -42,8 +42,11 @@ const searchApp = new SearchApp();
 // Create HTTP server.
 const server = restify.createServer();
 server.use(restify.plugins.bodyParser());
-server.listen(process.env.port || process.env.PORT || 3978, function () {
-  console.log(`\nBot started, ${server.name} listening to ${server.url}`);
+
+// Use the assigned port in Azure, or a default for local testing.
+const port = process.env.PORT || 3978;
+server.listen(port, function () {
+  console.log(`\nBot started, ${server.name} listening on port ${port}`);
 });
 
 // Listen for incoming requests.
