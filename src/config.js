@@ -3,7 +3,7 @@ const config = {
   botPassword: process.env.BOT_PASSWORD,
   storageConnectionString: process.env.AZURE_TABLE_STORAGE_CONNECTION_STRING,
   storageTableName: process.env.AZURE_TABLE_TABLE_NAME,
-  tenantId: process.env.TENANT_ID
+  tenantId: process.env.TENANT_ID,
 };
 
 module.exports = config;

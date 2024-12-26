@@ -11,7 +11,6 @@ const {
 const { SearchApp } = require("./searchApp");
 const config = require("./config");
 
-console.log(config);
 
 // Create adapter.
 // See https://aka.ms/about-bot-adapter to learn more about adapters.

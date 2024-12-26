@@ -8,22 +8,19 @@ const azure = require("azure-storage");
 
 const { Client } = require("@microsoft/microsoft-graph-client");
 const { TokenCredentialAuthenticationProvider } = require("@microsoft/microsoft-graph-client/authProviders/azureTokenCredentials");
-const {
-  MessageExtensionTokenResponse,
-  handleMessageExtensionQueryWithSSO,
-  OnBehalfOfCredentialAuthConfig,
-  OnBehalfOfUserCredential
-} = require("@microsoft/teamsfx");
+const { ClientSecretCredential } = require("@azure/identity");
 
-const { OnBehalfOfCredential, DeviceCodeCredential } = require("@azure/identity");
-
+const oboAuthConfig = {
+  clientId: config.botId,
+  tenantId: config.tenantId,
+  clientSecret: config.botPassword,
+};
 
 class SearchApp extends TeamsActivityHandler {
 
   async handleTeamsMessagingExtensionQuery(context, query) {
     const { parameters } = query;
 
-    // const file = getParameterByName(parameters, "File");
     const skills = getParameterByName(parameters, "Skill");
     const country = getParameterByName(parameters, "Location");
     const availabilityParam = getParameterByName(parameters, "Availability");
@@ -90,7 +87,6 @@ class SearchApp extends TeamsActivityHandler {
         context,
         "authbot"
       );
-      consloe.log("signInLink:", signInLink);
 
       return {
         composeExtension: {
@@ -108,55 +104,82 @@ class SearchApp extends TeamsActivityHandler {
       }      
     };
 
-    // Initialize DeviceCodeCredential
-    const credential = new DeviceCodeCredential({
-      tenantId: config.tenantId,
-      clientId: config.clientId,
-      userPromptCallback: (info) => {
-        console.log(info.message); // Display the device code message to the user
-      },
-    });
-
-    // Create authentication provider for Microsoft Graph
-    const authProvider = new TokenCredentialAuthenticationProvider(credential, {
-      scopes: ['User.Read'], // Specify the required scopes
-    });
-
-    // Initialize Microsoft Graph client
-    const graphClient = Client.initWithMiddleware({ authProvider: authProvider });
+    let clientSecretCredential = undefined;
+    let appClient = undefined;
     
+    try{
+      if (!clientSecretCredential) {
+        clientSecretCredential = new ClientSecretCredential(
+          oboAuthConfig.tenantId,
+          oboAuthConfig.clientId,
+          oboAuthConfig.clientSecret,
+        );
+      }
+  
+      if (!appClient) {
+        const authProvider = new TokenCredentialAuthenticationProvider(
+          clientSecretCredential,
+          {
+            scopes: ['https://graph.microsoft.com/.default'],
+          },
+        );
+    
+        appClient = Client.initWithMiddleware({
+          authProvider: authProvider,
+        });
+      }
+    }catch (error) {
+      console.error("Error creating Microsoft Graph client:", error);
+    }
+
+
     async function fetchCandidatesFromGraph(graphClient, filters) {
-      const queryParams = [];
-    
-      if (filters.skills) {
-        queryParams.push(`skills eq '${filters.skills}'`); // Replace with your attribute
-      }
-      if (filters.country) {
-        queryParams.push(`country eq '${filters.country}'`); // Replace with your attribute
-      }
-      if (filters.availability !== undefined) {
-        queryParams.push(`availability eq ${filters.availability}`); // Replace with your attribute
-      }
-    
-      const filterQuery = queryParams.length > 0 ? queryParams.join(" and ") : "";
-    
       try {
+        const filteredUsers = [];
         const users = await graphClient
           .api(`/users`)
-          .filter(filterQuery)
-          .select("id,displayName,skills,country,availability") // Specify required fields
           .get();
-    
-        return users.value;
+
+        for (const user of users.value){
+          const id = user.id;
+          const userProfileResponse = await graphClient
+            .api(`/users/${id}/?$select=id,displayName,skills,officeLocation`)
+            .get();
+          
+            // let userPhotoUrl = null;
+
+            // try {
+            //   const userPhotoResponse = await graphClient
+            //       .api(`/users/${id}/photo/$value`)
+            //       .responseType("blob") // Ensure binary data is retrieved as a Blob
+            //       .get();
+          
+            //   // Convert the Blob into a URL
+            //   userPhotoUrl = URL.createObjectURL(userPhotoResponse);
+            //   console.log(userPhotoUrl);
+            // } catch (error) {
+            //     if (error.statusCode === 404) {
+            //         console.warn("User does not have a profile photo. Using default.");
+            //         userPhotoUrl = "path/to/default/photo.png"; // Fallback URL or placeholder
+            //     } else {
+            //         console.error("Failed to fetch user photo:", error);
+            //     }
+            // }
+
+          if (userProfileResponse.skills.some(skill => filters.skills.includes(skill))) {
+            filteredUsers.push(userProfileResponse);
+          }
+        }
+        // console.log("Filtered Users:", filteredUsers);
+        return filteredUsers;
+
       } catch (error) {
         console.error("Error fetching candidates from Microsoft Graph:", error);
         return [];
       }
     }
 
-    const candidatesFromGraph = await fetchCandidatesFromGraph(graphClient, searchObject);
-
-
+    const candidatesFromGraph = await fetchCandidatesFromGraph(appClient, searchObject);
 
     // Define a function to fetch candidates based on parameters
     function fetchCandidates(queryParameters) {
@@ -231,12 +254,12 @@ class SearchApp extends TeamsActivityHandler {
 
     var attachments = [];
     // candidateData = candidates;
-    candidateData = candidatesFromGraph
+    candidateData = candidatesFromGraph;
     console.log("Candidates:", candidateData);
 
     // Create Adaptive Card object
     candidateData.map((result) => {
-      var availability = result.availability._ ? "Yes" : "No"
+      // var availability = result.availability._ ? "Yes" : "No"
       const resultCard = CardFactory.adaptiveCard({
         "type": "AdaptiveCard",
         "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
@@ -272,7 +295,8 @@ class SearchApp extends TeamsActivityHandler {
                   {
                     "type": "TextBlock",
                     "weight": "Bolder",
-                    "text": `${result.name._}`,
+                    // "text": `${result.name._}`,
+                    "text": `${result.displayName}`,
                     "wrap": true,
                     "spacing": "None",
                     "horizontalAlignment": "Left",
@@ -291,89 +315,29 @@ class SearchApp extends TeamsActivityHandler {
             "facts": [
               {
                 "title": "Skills:",
-                "value": `${result.skills._}`
+                // "value": `${result.skills._}`
+                "value": `${result.skills}`
               },
               {
                 "title": "Location:",
-                "value": `${result.country._}`,
+                // "value": `${result.country._}`,
+                "value": `${result.officeLocation}`
               },
               {
                 "title": "Available:",
-                "value": `${availability}`,
+                // "value": `${availability}`,
+                "value": "Yes",
               }
             ]
           }
         ],
-        // New actions
-        "actions": [
-          {
-              "type": "Action.OpenUrl",
-              "title": "Action Open URL",
-              "url": "https://adaptivecards.io"
-          },
-          {
-              "type": "Action.ShowCard",
-              "title": "Action Submit",
-              "card": {
-                  "type": "AdaptiveCard",
-                  "version": "1.5",
-                  "body": [
-                      {
-                          "type": "Input.Text",
-                          "id": "name",
-                          "label": "Please enter your name:",
-                          "isRequired": true,
-                          "errorMessage": "Name is required"
-                      }
-                  ],
-                  "actions": [
-                      {
-                          "type": "Action.Submit",
-                          "title": "Submit"
-                      }
-                  ]
-              }
-          },
-          {
-              "type": "Action.ShowCard",
-              "title": "Action ShowCard",
-              "card": {
-                  "type": "AdaptiveCard",
-                  "version": "1.0",
-                  "body": [
-                      {
-                          "type": "TextBlock",
-                          "text": "This card's action will show another card"
-                      }
-                  ],
-                  "actions": [
-                      {
-                          "type": "Action.ShowCard",
-                          "title": "Action.ShowCard",
-                          "card": {
-                              "type": "AdaptiveCard",
-                              "body": [
-                                  {
-                                      "type": "TextBlock",
-                                      "text": "**Welcome To New Card**"
-                                  },
-                                  {
-                                      "type": "TextBlock",
-                                      "text": "This is your new card inside another card"
-                                  }
-                              ]
-                          }
-                      }
-                  ]
-              }
-          }
-      ]
         
       });
 
       const previewCard = CardFactory.heroCard(
-        result.name._,
-        result.skills._
+        // result.name._,
+        // result.skills._
+        result.displayName,
       );
 
       attachments.push({ ...resultCard, preview: previewCard });
