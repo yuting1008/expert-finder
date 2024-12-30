@@ -20,9 +20,6 @@ const adapter = new BotFrameworkAdapter({
   appPassword: config.botPassword
 });
 
-console.log("botId:", config.botId);
-console.log("botPassword:", config.botPassword);
-
 
 adapter.onTurnError = async (context, error) => {
   // This check writes out errors to console log .vs. app insights.
@@ -45,6 +42,7 @@ server.use(restify.plugins.bodyParser());
 
 // Use the assigned port in Azure, or a default for local testing.
 const port = process.env.PORT || 3978;
+console.log("PORT:", port);
 server.listen(port, function () {
   console.log(`\nBot started, ${server.name} listening on port ${port}`);
 });
