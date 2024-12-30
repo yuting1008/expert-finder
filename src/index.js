@@ -1,5 +1,7 @@
 // index.js is used to setup and configure your bot
 
+console.log("Environment Variables:", process.env);
+
 // Import required packages
 const restify = require("restify");
 
@@ -43,17 +45,36 @@ server.use(restify.plugins.bodyParser());
 // Use the assigned port in Azure, or a default for local testing.
 const port = process.env.PORT || 3978;
 console.log("PORT:", port);
-server.listen(port, function () {
-  console.log(`\nBot started, ${server.name} listening on port ${port}`);
-});
+// server.listen(port, function () {
+//   console.log(`\nBot started, ${server.name} listening on port ${port}`);
+// });
+try {
+  server.listen(port, function () {
+    console.log(`\nBot started, ${server.name} listening on port ${port}`);
+  });
+} catch (error) {
+  console.error("Server failed to start:", error);
+}
 
 // Listen for incoming requests.
-server.post("/api/messages", async (req, res) => {
-  await adapter.process(req, res, async (context) => {
-    console.log("Context parameter:", context._activity.value.parameters);
+// server.post("/api/messages", async (req, res) => {
+//   await adapter.process(req, res, async (context) => {
+//     console.log("Context parameter:", context._activity.value.parameters);
     
-    await searchApp.run(context);
-  });
+//     await searchApp.run(context);
+//   });
+// });
+
+server.post("/api/messages", async (req, res) => {
+  try {
+    await adapter.process(req, res, async (context) => {
+      console.log("Request received:", req.body);
+      await searchApp.run(context);
+    });
+  } catch (error) {
+    console.error("Error in POST /api/messages:", error);
+    res.send(500);
+  }
 });
 
 // Gracefully shutdown HTTP server
