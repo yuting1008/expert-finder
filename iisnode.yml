@@ -1,2 +1,4 @@
 loggingEnabled: true
 logDirectory: iisnode
+maxNamedPipeConnectionRetry: 100
+namedPipeConnectionRetryDelay: 250
