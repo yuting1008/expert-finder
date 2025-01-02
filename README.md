@@ -77,24 +77,22 @@ The simplest way to run this sample in Teams is to use Teams Toolkit for Visual 
 1. Select **File > Open Folder** in VS Code and choose this samples directory from the repo
 1. Using the extension, sign in with your Microsoft 365 account where you have permissions to upload custom apps
 1. ‼️Note : Navigate to `src/searchApp.js` and change `tableName` into `storageTableName` which corresponds to `.localConfigs`.
-   <img width="1128" alt="table name error" src="https://github.com/user-attachments/assets/0a444ab6-4e0c-45f5-a13c-49d45287ff8a">
+   <img width="500" alt="table name error" src="https://github.com/user-attachments/assets/2488f227-f183-4570-b86a-5fb440451ffa">
 1. Select **Debug > Start Debugging** or **F5** to run the app in a Teams web client. \
-   <img src="https://github.com/user-attachments/assets/a709732e-34e7-4654-963b-d4335eb59e95" alt="Image description" width="400" height="300">
+   <img src="https://github.com/user-attachments/assets/da7feb8b-91f3-4918-ac3e-d0f65fa9c552" alt="Image description" width="400" height="300">
 
 ‼️Note : When provisioning, if `botAadApp/create.MissingServiceManagementReference` occurs, please create the Microsoft Entra App in App registrations manually. After that add `BOT_ID` in `env/.env.local` and `SECRET_BOT_PASSWORD` in `env/.env.local.user`.
-![botAadAppcreate MissingServiceManagementReference](https://github.com/user-attachments/assets/09961317-5051-4ce3-ad96-e9cc19efcc80)
+![botAadAppcreate MissingServiceManagementReference](https://github.com/user-attachments/assets/5173e137-68c4-498c-bd6f-1617468d2757)
 
 ‼️Note : Navigate to `.localConfigs`, make sure that `BOT_ID` and `BOT_PASSWORD`, which are identical to `BOT_ID` in `env/.env.local` and `SECRET_BOT_PASSWORD` in `env/.env.local.user`, are filled. If not, please add them manually.
-![localConfigs](https://github.com/user-attachments/assets/1fd6052b-833b-432c-bc3f-c16328dc9870)
 
 ‼️Note : When provisioning, if an error related to `teamsApp/validateManifest` occurs, you can check out `appPackage/manifest.json` to see if a comma is missing between `validDomains` and `webApplicationInfo`.
-![manifest error](https://github.com/user-attachments/assets/07faf33f-0f98-45c4-9c11-67cdb9f38c86)
+![image](https://github.com/user-attachments/assets/65ae2cd6-f98c-4ac1-9a09-197ffac88326)
+
 
 ‼️Note : When provisioning, if you get the Port Occupancy error, you can open Task Manager and end Node.js runtime with right click.
-<img src="https://github.com/user-attachments/assets/489804e6-6c01-4383-9111-daecc66ac307" alt="Image description"> \
-<img src="https://github.com/user-attachments/assets/8f325631-fe73-484f-976a-f4625486ee29" alt="Image description" width="600">
-
-
+<img src="https://github.com/user-attachments/assets/962cc8ed-4ff1-48c0-9011-48fa30e3ef0c"> \
+<img src="https://github.com/user-attachments/assets/e8c3574b-8f96-46bb-bd6a-09cd8a4f3b9f" width="600">
 
 ## Setup Single Sign-On (SSO)
 
@@ -131,7 +129,8 @@ The app registrations in azure portal and search for the app registration will b
 ### Setup Azure Bot Service Connection (TokenStore)
 Azure bot will be created automatically in the selected subscription and resource group while running the sample using Toolkit. \
 ‼️Note : If the Azure bot isn't created automactically, please go to the [Bot portal](https://dev.botframework.com) > My bots page. Choose the bot you create and click the "migrate" button.
-![migrate bot](https://github.com/user-attachments/assets/dce18988-91af-4c37-9f82-3d8d338c5904)
+![image](https://github.com/user-attachments/assets/0618d0b6-95b4-4d57-8c01-473df394b27d)
+
 
 
 1. In the Azure Portal, go to the resource group selected while running the sample using toolkit and navigate to the Azure Bot resource
