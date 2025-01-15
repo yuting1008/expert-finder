@@ -1,7 +1,7 @@
 {
     "id": "6c17c166-2590-4fca-837f-ff7a9bb91f0f",
     "appId": "050e8cd1-ceb7-471a-b362-9ad932579a21",
-    "name": "Expert Finder",
+    "name": "Expert Finder local",
     "accessTokenAcceptedVersion": 2,
     "signInAudience": "AzureADMyOrg",
     "optionalClaims": {
@@ -94,7 +94,7 @@
     ],
     "replyUrlsWithType": [
         {
-            "url": "https://7k20gkch-3978.asse.devtunnels.ms/auth-end.html",
+            "url": "https://8r0q9dbh-3978.asse.devtunnels.ms/auth-end.html",
             "type": "Web"
         }
     ]
