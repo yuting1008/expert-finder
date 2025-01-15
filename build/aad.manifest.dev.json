@@ -1,0 +1,101 @@
+{
+    "id": "82c40cd0-156a-4a22-be14-d116e6cdf70f",
+    "appId": "15c3d1d8-f9c1-493e-837f-a10928e6b4c8",
+    "name": "Contact Details",
+    "accessTokenAcceptedVersion": 2,
+    "signInAudience": "AzureADMyOrg",
+    "optionalClaims": {
+        "idToken": [],
+        "accessToken": [
+            {
+                "name": "idtyp",
+                "source": null,
+                "essential": false,
+                "additionalProperties": []
+            }
+        ],
+        "saml2Token": []
+    },
+    "requiredResourceAccess": [
+        {
+            "resourceAppId": "00000003-0000-0000-c000-000000000000",
+            "resourceAccess": [
+                {
+                    "id": "e1fe6dd8-ba31-4d61-89e7-88639da4683d",
+                    "type": "Scope"
+                }
+            ]
+        }
+    ],
+    "oauth2Permissions": [
+        {
+            "adminConsentDescription": "Allows Teams to call the app's web APIs as the current user.",
+            "adminConsentDisplayName": "Teams can access app's web APIs",
+            "id": "0c7b4945-5ee9-4617-92b1-8c2d0f30dfda",
+            "isEnabled": true,
+            "type": "User",
+            "userConsentDescription": "Enable Teams to call this app's web APIs with the same rights that you have",
+            "userConsentDisplayName": "Teams can access app's web APIs and make requests on your behalf",
+            "value": "access_as_user"
+        }
+    ],
+    "preAuthorizedApplications": [
+        {
+            "appId": "1fec8e78-bce4-4aaf-ab1b-5451cc387264",
+            "permissionIds": [
+                "0c7b4945-5ee9-4617-92b1-8c2d0f30dfda"
+            ]
+        },
+        {
+            "appId": "5e3ce6c0-2b1f-4285-8d4b-75ee78787346",
+            "permissionIds": [
+                "0c7b4945-5ee9-4617-92b1-8c2d0f30dfda"
+            ]
+        },
+        {
+            "appId": "d3590ed6-52b3-4102-aeff-aad2292ab01c",
+            "permissionIds": [
+                "0c7b4945-5ee9-4617-92b1-8c2d0f30dfda"
+            ]
+        },
+        {
+            "appId": "00000002-0000-0ff1-ce00-000000000000",
+            "permissionIds": [
+                "0c7b4945-5ee9-4617-92b1-8c2d0f30dfda"
+            ]
+        },
+        {
+            "appId": "bc59ab01-8403-45c6-8796-ac3ef710b3e3",
+            "permissionIds": [
+                "0c7b4945-5ee9-4617-92b1-8c2d0f30dfda"
+            ]
+        },
+        {
+            "appId": "0ec893e0-5785-4de6-99da-4ed124e5296c",
+            "permissionIds": [
+                "0c7b4945-5ee9-4617-92b1-8c2d0f30dfda"
+            ]
+        },
+        {
+            "appId": "4765445b-32c6-49b0-83e6-1d93765276ca",
+            "permissionIds": [
+                "0c7b4945-5ee9-4617-92b1-8c2d0f30dfda"
+            ]
+        },
+        {
+            "appId": "4345a7b9-9a63-4910-a426-35363201d503",
+            "permissionIds": [
+                "0c7b4945-5ee9-4617-92b1-8c2d0f30dfda"
+            ]
+        }
+    ],
+    "identifierUris": [
+        "api://botid-655e0da2-d463-41a4-a9ea-db31c1b7155e"
+    ],
+    "replyUrlsWithType": [
+        {
+            "url": "https://queryorgusereddad6.azurewebsites.net/auth-end.html",
+            "type": "Web"
+        }
+    ]
+}
