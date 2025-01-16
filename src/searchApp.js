@@ -102,18 +102,22 @@ class TeamsBot extends TeamsActivityHandler {
                     const userProfileResponse = await graphClient
                       .api(`/users/${id}/?$select=id,displayName,skills,officeLocation`)
                       .get();
-          
+                    
                     if (userProfileResponse.skills.some(skill => filters.skills.toLowerCase().includes(skill.toLowerCase()))) {
-                      const userPhoto = await graphClient
-                        .api(`/users/${id}/photo/$value`)
-                        .responseType('arraybuffer')
-                        .get();
-                      if (userPhoto) {
+                      try {
+                        const userPhoto = await graphClient
+                            .api(`/users/${id}/photo/$value`)
+                            .responseType('arraybuffer')
+                            .get();
+    
                         const userPhotoBase64 = Buffer.from(userPhoto).toString('base64');
                         userProfileResponse.photo = `data:image/jpeg;base64,${userPhotoBase64}`;
-                      }
-                      else {
-                        userProfileResponse.photo = "https://pbs.twimg.com/profile_images/3647943215/d7f12830b3c17a5a9e4afcc370e3a37e_400x400.jpeg";
+                      } catch (photoError) {
+                          if (photoError.statusCode === 404) {
+                              userProfileResponse.photo = "https://pbs.twimg.com/profile_images/3647943215/d7f12830b3c17a5a9e4afcc370e3a37e_400x400.jpeg";
+                          } else {
+                              console.error(`Error fetching photo for user ${id}:`, photoError);
+                          }
                       }
                       filteredUsers.push(userProfileResponse);
                     }
