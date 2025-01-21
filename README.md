@@ -28,7 +28,7 @@ This sample demonstrates a Teams message extension integrated with Microsoft Cop
     ```
 1. Navigate to the `expert-finder` folder and open it with Visual Studio Code.
 1. Select **File > Open Folder** in VS Code and choose this samples directory from the repo
-1. Using the extension, sign in with your Azure account and Microsoft 365 account where you have permissions to upload custom apps.
+1. Using the extension, sign in with your Azure account and Microsoft 365 account where you have permissions to upload custom apps. \
     <img src="images/account-login-1.png" alt="account-login" height="300"> ⮕
     <img src="images/account-login-2.png" alt="account-login" height="300">
 1. Select **Debug > Start Debugging** to run the app in a Teams web client. Once the debugging process starts, your default browser will open and navigate to the Teams web client, allowing you to test the application. \
