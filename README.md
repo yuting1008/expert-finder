@@ -50,12 +50,10 @@ Navigate to the Microsoft Copilot for Microsoft 365 chat. Check the upper right 
 
 #### SSO auth with consent popup when sign in button is clicked
 On first use, a window requesting for Sign In pops-up and once SSO is completed, the user flow continues as usual.
-<!-- !! 照片待補 -->
 <!-- ![expert-finder-gif](images/expert-finder.gif) -->
 <!-- ![sso-auth](images/12.copilot-auth.png) -->
 
 #### Search based on skills and country
-<!-- !! 照片待補 -->
 <!-- ![skills-country](images/13.multi-param.png) -->
 
 Here are some sample prompts you can try : 
