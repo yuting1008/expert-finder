@@ -27,7 +27,7 @@ This sample demonstrates a Teams message extension integrated with Microsoft Cop
     git clone https://github.com/yuting1008/expert-finder.git
     ```
 1. Navigate to the `expert-finder` folder and open it with Visual Studio Code.
-1. Select **File > Open Folder** in VS Code and choose this samples directory from the repo
+1. Select **File > Open Folder** in VS Code and choose this samples directory from the repo.
 1. Using the extension, sign in with your Azure account and Microsoft 365 account where you have permissions to upload custom apps. \
     <img src="images/account-login-1.png" alt="account-login" height="300"> ⮕
     <img src="images/account-login-2.png" alt="account-login" height="300">
@@ -40,6 +40,7 @@ This sample demonstrates a Teams message extension integrated with Microsoft Cop
 1. Open the Teams Toolkit and select **Provision** under the Lifecycle section. This action will create the required resources in your Azure environment.
 1. Select **Deploy** under the Lifecycle section. This action will deploy the base folder to Azure. 
 1. Select **Publish** under the Lifecycle section. This action will publish the application to Teams admin center.
+1. If you make any changes to the source code, click **Deploy** again to apply the changes to the deployed app.
     <img src="images/teams-toolkit-lifecycle.png" alt="teams-toolkit-lifecycle" height="300">
 
 
