@@ -6,7 +6,7 @@ This sample demonstrates a Teams message extension integrated with Microsoft Cop
 - [Prerequisites](#prerequisites)
 - [Setup and run the sample locally](#setup-and-run-the-sample-locally)
 - [Deploy the app to Azure](#deploy-the-app-to-azure)
-- [Test the app in Teams and Copilot for Microsoft 365](#test-the-app-in-teams-and-copilot-for-microsoft-365)
+- [Test the app in Teams and Copilot for Microsoft 365](#use-the-app-in-teams-and-copilot-for-microsoft-365)
 - [Troubleshooting](#troubleshooting)
 - [Further reading](#further-reading)
 
@@ -37,14 +37,14 @@ This sample demonstrates a Teams message extension integrated with Microsoft Cop
 ## Deploy the app to Azure
 
 1. Ensure the application is running locally to identify and resolve any potential bugs before proceeding.
-1. Open the Teams Toolkit and select **Provision** under the Lifecycle section. This action will create the required resources in your Azure environment.
+1. Open the Teams Toolkit and select **Provision** under the Lifecycle section. This action will create the required resources in your Azure environment. \
     <img src="images/teams-toolkit-lifecycle.png" alt="teams-toolkit-lifecycle" height="300">
 1. Select **Deploy** under the Lifecycle section. This action will deploy the base folder to Azure. 
 1. Select **Publish** under the Lifecycle section. This action will publish the application to Teams admin center.
 1. Navigate to the [**Teams admin center**](https://admin.teams.microsoft.com/) and approve the app.
-1. Open your Teams app store and install the app. 
-    <img src="images/install-app.png" alt="install-app">
-1. If you make any changes to the source code, click **Deploy** again to apply the changes to the deployed app.
+1. Open your Teams app store and install the app. \
+    <img src="images/install-app.png" alt="install-app" width="500">
+> If you make any changes to the source code, click **Deploy** again to apply the changes to the deployed app.
     
 
 
