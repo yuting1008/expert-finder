@@ -38,24 +38,24 @@ This sample demonstrates a Teams message extension integrated with Microsoft Cop
 
 1. Ensure the application is running locally to identify and resolve any potential bugs before proceeding.
 1. Open the Teams Toolkit and select **Provision** under the Lifecycle section. This action will create the required resources in your Azure environment.
+    <img src="images/teams-toolkit-lifecycle.png" alt="teams-toolkit-lifecycle" height="300">
 1. Select **Deploy** under the Lifecycle section. This action will deploy the base folder to Azure. 
 1. Select **Publish** under the Lifecycle section. This action will publish the application to Teams admin center.
+1. Navigate to the [**Teams admin center**](https://admin.teams.microsoft.com/) and approve the app.
+1. Open your Teams app store and install the app. 
+    <img src="images/install-app.png" alt="install-app">
 1. If you make any changes to the source code, click **Deploy** again to apply the changes to the deployed app.
-    <img src="images/teams-toolkit-lifecycle.png" alt="teams-toolkit-lifecycle" height="300">
+    
 
 
-## Test the app in Teams and Copilot for Microsoft 365
+## Use the app in Teams and Copilot for Microsoft 365
 
 Navigate to the Microsoft Copilot for Microsoft 365 chat. Check the upper right of the chat user interface. You should see the Expert Finder as and agent. Click it and start using Expert-finder plugin.
 
 #### SSO auth with consent popup when sign in button is clicked
 On first use, a window requesting for Sign In pops-up and once SSO is completed, the user flow continues as usual.
-<!-- ![expert-finder-gif](images/expert-finder.gif) -->
-<!-- ![sso-auth](images/12.copilot-auth.png) -->
 
-#### Search based on skills and country
-<!-- ![skills-country](images/13.multi-param.png) -->
-
+#### Search based on skills and country in Copilot
 Here are some sample prompts you can try : 
 1) `Find experts with skill in Azure.`
 2) `Find experts with skill in React and who are from Taipei.`
