@@ -93,52 +93,83 @@ class TeamsBot extends TeamsActivityHandler {
               async function fetchCandidatesFromGraph(graphClient, filters) {
                 try {
                   const filteredUsers = [];
-                  const users = await graphClient
-                    .api(`/users`)
-                    .get();
-          
-                  for (const user of users.value){
-                    const id = user.id;
-                    const userProfileResponse = await graphClient
-                      .api(`/users/${id}/?$select=id,displayName,skills,officeLocation`)
-                      .get();
-                    
-                    if (userProfileResponse.skills.some(skill => filters.skills.toLowerCase().includes(skill.toLowerCase()))) {
+                  const skillsArray = Array.isArray(filters.skills) ? filters.skills : filters.skills.split(',');
+                  const skillsSet = new Set(skillsArray.map(skill => skill.toLowerCase()));
+                  // const skillsSet = new Set(filters.skills.map(skill => skill.toLowerCase()));
+                  console.log("Skills Set:", skillsSet);
+                  console.log("filters:", filters);
+                  let nextLink = '/users';
+              
+                  while (nextLink) {
+                    const usersResponse = await graphClient.api(nextLink).get();
+                    const users = usersResponse.value;
+              
+                    // Fetch profiles and photos concurrently
+                    const userPromises = users.map(async (user) => {
+                      const id = user.id;
+              
                       try {
-                        const userPhoto = await graphClient
+                        // Fetch user profile
+                        const userProfileResponse = await graphClient
+                          .api(`/users/${id}/?$select=id,displayName,skills,officeLocation`)
+                          .get();
+              
+                        const userSkills = userProfileResponse.skills || [];
+                        // const hasMatchingSkill = userSkills.some(skill => skillsSet.has(skill.toLowerCase()));
+                        const hasMatchingSkill = userSkills.some(skill => {
+                          return Array.from(skillsSet).some(searchSkill => skill.toLowerCase().includes(searchSkill));
+                        });
+              
+                        if (!hasMatchingSkill) return null; // Skip if no matching skills
+              
+                        // Fetch user photo
+                        try {
+                          const userPhoto = await graphClient
                             .api(`/users/${id}/photo/$value`)
                             .responseType('arraybuffer')
                             .get();
-    
-                        const userPhotoBase64 = Buffer.from(userPhoto).toString('base64');
-                        userProfileResponse.photo = `data:image/jpeg;base64,${userPhotoBase64}`;
-                      } catch (photoError) {
+              
+                          const userPhotoBase64 = Buffer.from(userPhoto).toString('base64');
+                          userProfileResponse.photo = `data:image/jpeg;base64,${userPhotoBase64}`;
+                        } catch (photoError) {
                           if (photoError.statusCode === 404) {
-                              userProfileResponse.photo = "https://pbs.twimg.com/profile_images/3647943215/d7f12830b3c17a5a9e4afcc370e3a37e_400x400.jpeg";
+                            userProfileResponse.photo =
+                              'https://pbs.twimg.com/profile_images/3647943215/d7f12830b3c17a5a9e4afcc370e3a37e_400x400.jpeg';
                           } else {
-                              console.error(`Error fetching photo for user ${id}:`, photoError);
+                            console.error(`Error fetching photo for user ${id}:`, photoError);
                           }
+                        }
+              
+                        return userProfileResponse;
+                      } catch (profileError) {
+                        console.error(`Error fetching profile for user ${id}:`, profileError);
+                        return null;
                       }
-                      filteredUsers.push(userProfileResponse);
-                    }
+                    });
+              
+                    // Wait for all promises to resolve
+                    const resolvedUsers = await Promise.all(userPromises);
+              
+                    // Filter out null values
+                    filteredUsers.push(...resolvedUsers.filter(user => user !== null));
+              
+                    // Check for pagination
+                    nextLink = usersResponse['@odata.nextLink'];
                   }
-          
+              
                   return filteredUsers;
-          
                 } catch (error) {
-                  console.error("Error fetching candidates from Microsoft Graph:", error);
+                  console.error('Error fetching candidates from Microsoft Graph:', error);
                   return [];
                 }
               }
               
-              // Fetch candidates based on applied filters.
-              const candidatesFromGraph = await fetchCandidatesFromGraph(graphClient, searchObject);
               
+              const candidatesFromGraph = await fetchCandidatesFromGraph(graphClient, searchObject);
               candidateData = candidatesFromGraph;
               console.log("Candidates:");
               candidateData.map((result) => console.log(result.displayName));
 
-              // Create Adaptive Card object
               candidateData.map((result) => {
                 // var availability = result.availability._ ? "Yes" : "No"
                 const resultCard = CardFactory.adaptiveCard({
@@ -162,7 +193,7 @@ class TeamsBot extends TeamsActivityHandler {
                           "items": [
                             {
                               "type": "Image",
-                              "url": result.photo,
+                              "url": `${result.photo}`,
                               "altText": "profileImage",
                               "size": "Small",
                               "style": "Person"
@@ -195,11 +226,11 @@ class TeamsBot extends TeamsActivityHandler {
                       "facts": [
                         {
                           "title": "Skills:",
-                          "value": `${result.skills}`
+                          "value": `${result.skills.join(', ')}`
                         },
                         {
                           "title": "Location:",
-                          "value": `${result.officeLocation}`
+                          "value": `${result.officeLocation}`,
                         },
                         {
                           "title": "Available:",
@@ -215,29 +246,28 @@ class TeamsBot extends TeamsActivityHandler {
                   result.displayName,
                   result.skills.join(', ')
                 );
-
                 attachments.push({ ...resultCard, preview: previewCard });
               });
                 // Return the attachments as a result to the Teams client.
                 return {
-                    composeExtension: {
-                        type: "result",
-                        attachmentLayout: "list",
-                        attachments: attachments
-                    },
+                  composeExtension: {
+                      type: "result",
+                      attachmentLayout: "list",
+                      attachments: attachments
+                  },
                 };
             }
         );
-      } catch (error) {
-          console.error("Error handling Teams messaging extension query:", error);
-          // Return an error message to the Teams client.
-          return {
-              composeExtension: {
-                  type: "message",
-                  text: "An error occurred while processing your request. Please try again later."
-              },
-          };
-      }
+    } catch (error) {
+      console.error("Error handling Teams messaging extension query:", error);
+      // Return an error message to the Teams client.
+      return {
+        composeExtension: {
+            type: "message",
+            text: "An error occurred while processing your request. Please try again later."
+        },
+      };
+    }
   }
 }
 
