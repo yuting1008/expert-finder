@@ -1,6 +1,7 @@
 # Expert Finder message extension sample with SSO
 
 This sample demonstrates a Teams message extension integrated with Microsoft Copilot, enabling users to efficiently search experts with Microsoft Graph API based on their skills, location, and availability. The extension features Single Sign-On (SSO) for enhanced user experience and authentication. 
+> Refer to the Traditional Chinese version: [README(zh-tw).md](README(zh-tw).md)
 
 ### Table of Contents
 - [Prerequisites](#prerequisites)
