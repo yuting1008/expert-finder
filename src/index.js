@@ -1,93 +1,46 @@
-// Import required packages
-const restify = require("restify");
-const path = require("path");
-
-// Import required bot services.
-// See https://aka.ms/bot-services to learn more about the different parts of a bot.
-const {
-  CloudAdapter,
-  ConfigurationServiceClientCredentialFactory,
-  ConfigurationBotFrameworkAuthentication,
-} = require("botbuilder");
-
-// This bot's main dialog.
-const { TeamsBot } = require("./searchApp");
+const path = require('path');
+const restify = require('restify');
+const { ConfigurationServiceClientCredentialFactory } = require('botbuilder');
+const { TeamsAdapter } = require('@microsoft/teams-ai');
+const { app } = require('./searchApp');
 const config = require("./config");
 
-// Create adapter.
-// See https://aka.ms/about-bot-adapter to learn more about adapters.
-const credentialsFactory = new ConfigurationServiceClientCredentialFactory({
-  MicrosoftAppId: config.botId,
-  MicrosoftAppPassword: config.botPassword,
-  MicrosoftAppType: "MultiTenant",
-});
-
-const botFrameworkAuthentication = new ConfigurationBotFrameworkAuthentication(
-  {},
-  credentialsFactory
+// 建立 Adapter
+const adapter = new TeamsAdapter(
+    {},
+    new ConfigurationServiceClientCredentialFactory({
+        MicrosoftAppId: config.botId,
+        MicrosoftAppPassword: config.botPassword,
+        MicrosoftAppType: 'MultiTenant'
+    })
 );
 
-const adapter = new CloudAdapter(botFrameworkAuthentication);
-
-// Catch-all for errors.
-const onTurnErrorHandler = async (context, error) => {
-  // This check writes out errors to console log .vs. app insights.
-  // NOTE: In production environment, you should consider logging this to Azure
-  //       application insights.
-  console.error(`\n [onTurnError] unhandled error: ${error}`);
-
-  // Send a trace activity, which will be displayed in Bot Framework Emulator
-  await context.sendTraceActivity(
-    "OnTurnError Trace",
-    `${error}`,
-    "https://www.botframework.com/schemas/error",
-    "TurnError"
-  );
-
-  // Send a message to the user
-  await context.sendActivity(
-    `The bot encountered unhandled error:\n ${error.message}`
-  );
-  await context.sendActivity(
-    "To continue to run this bot, please fix the bot source code."
-  );
+// 錯誤處理
+adapter.onTurnError = async (context, error) => {
+    console.error(`\n [onTurnError] unhandled error: ${error.toString()}`);
+    await context.sendActivity('The bot encountered an error or bug.');
+    await context.sendActivity('To continue to run this bot, please fix the bot source code.');
 };
 
-// Set the onTurnError for the singleton BotFrameworkAdapter.
-adapter.onTurnError = onTurnErrorHandler;
-
-// Create the bot that will handle incoming messages.
-const bot = new TeamsBot();
-
-// Create HTTP server.
+// 建立 HTTP 伺服器
 const server = restify.createServer();
 server.use(restify.plugins.bodyParser());
-server.listen(process.env.port || process.env.PORT || 3978, () => {
+
+server.listen(process.env.PORT || 3978, () => {
   console.log(`\nBot Started, ${server.name} listening to ${server.url}`);
 });
 
-// Listen for incoming requests.
-server.post("/api/messages", async (req, res) => {
-  await adapter
-    .process(req, res, async (context) => {
-      await bot.run(context);
-    })
-    .catch((err) => {
-      // Error message including "412" means it is waiting for user's consent, which is a normal process of SSO, shouldn't throw this error.
-      if (!err.message.includes("412")) {
-        throw err;
-      }
-      else {
-        console.log("Waiting for user's consent...");
-      }
+// 處理訊息請求
+server.post('/api/messages', async (req, res) => {
+    await adapter.process(req, res, async (context) => {
+        await app.run(context);
     });
 });
 
+// 提供靜態 HTML 頁面（用於 OAuth）
 server.get(
-  "/auth-:name(start|end).html",
-  restify.plugins.serveStatic({
-    directory: path.join(__dirname, "../public"), // Updated
-  })
+    '/auth-:name(start|end).html',
+    restify.plugins.serveStatic({
+        directory: path.join(__dirname, 'public')
+    })
 );
-
-
