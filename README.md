@@ -49,7 +49,6 @@ This sample demonstrates a Teams message extension integrated with Microsoft Cop
 > If you make any changes to the source code, click **Deploy** again to apply the changes to the deployed app.
     
 
-
 ## Use the app in Teams and Copilot for Microsoft 365
 
 Navigate to the Microsoft Copilot for Microsoft 365 chat. Check the upper right of the chat user interface. You should see the Expert Finder as and agent. Click it and start using Expert-finder plugin.
@@ -60,7 +59,7 @@ On first use, a window requesting for Sign In pops-up and once SSO is completed,
 
 #### Search based on skills and country in Copilot
 
-![Plugin](images/copilot-demo.gif)
+![Plugin](images/m365-copilot-demo.gif)
 
 Here are some sample prompts you can try : 
 1) `Find experts with skill in Azure.`
@@ -69,7 +68,7 @@ Here are some sample prompts you can try :
 
 #### Try out message extension in chat
 
-![Plugin](images/message-extension-demo.gif)
+![Plugin](images/teams-message-extension-demo.gif)
 
 
 ## Troubleshooting

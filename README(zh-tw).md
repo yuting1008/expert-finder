@@ -58,7 +58,7 @@
 
 #### 在 Copilot 中依技能與辦公室地點搜尋
 
-![Plugin](images/copilot-demo.gif)
+![Plugin](images/m365-copilot-demo.gif)
 
 
 以下是一些範例提示：
@@ -68,7 +68,7 @@
 
 #### 在聊天中嘗試訊息擴充功能
 
-![Plugin](images/message-extension-demo.gif)
+![Plugin](images/teams-message-extension-demo.gif)
 
 ## 疑難排解
 
