@@ -4,6 +4,7 @@ This sample demonstrates a Teams message extension integrated with Microsoft Cop
 > Refer to the Traditional Chinese version: [README(zh-tw).md](README(zh-tw).md)
 
 ### Table of Contents
+
 - [Prerequisites](#prerequisites)
 - [Setup and run the sample locally](#setup-and-run-the-sample-locally)
 - [Deploy the app to Azure](#deploy-the-app-to-azure)
@@ -49,24 +50,29 @@ This sample demonstrates a Teams message extension integrated with Microsoft Cop
     
 
 
+#### SSO auth with consent popup when sign in button is clicked
+
+On first use, a window requesting for Sign In pops-up and once SSO is completed, the user flow continues as usual.
+
 ## Use the app in Teams and Copilot for Microsoft 365
 
 Navigate to the Microsoft Copilot for Microsoft 365 chat. Check the upper right of the chat user interface. You should see the Expert Finder as and agent. Click it and start using Expert-finder plugin.
-
-#### SSO auth with consent popup when sign in button is clicked
-On first use, a window requesting for Sign In pops-up and once SSO is completed, the user flow continues as usual.
+![Plugin](images/copilot-demo.gif)
 
 #### Search based on skills and country in Copilot
+
 Here are some sample prompts you can try : 
 1) `Find experts with skill in Azure.`
 2) `Find experts with skill in React and who are from Taipei.`
 3) `Find experts with skill in Azure and available for interview.`
 
 #### Try out message extension in chat
+
 ![Plugin](images/message-extension-demo.gif)
 
 
 ## Troubleshooting
+
 1. If you encounter any errors after deploying the app, you can check the error log on Azure App Services. First, you need to enable the Azure web app log stream. 
     - Navigate to Web App **Monitoring** > **App Service Logs**.
     - Enable **Application logging (Filesystem)** and click **Save**. 

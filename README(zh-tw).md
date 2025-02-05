@@ -3,10 +3,11 @@
 此範例展示了整合 Microsoft Copilot 的 Teams 訊息擴充功能，透過 Microsoft Graph API 根據技能、地點和可用性高效搜尋專家。該擴充功能支援單一登入 (SSO)，提供更佳的使用者體驗與身份驗證功能。
 
 ### 目錄
+
 - [先決條件](#先決條件)
 - [本機設定與執行範例](#本機設定與執行範例)
 - [部署應用程式至 Azure](#部署應用程式至-azure)
-- [在 Teams 與 Microsoft 365 Copilot 測試應用程式](#在-teams-與-microsoft-365-copilot-測試應用程式)
+- [在 Teams 與 Microsoft 365 Copilot 使用應用程式](#在-teams-與-microsoft-365-copilot-使用應用程式)
 - [疑難排解](#疑難排解)
 - [延伸閱讀](#延伸閱讀)
 
@@ -35,7 +36,7 @@
 
 ## 部署應用程式至 Azure
 
-1. 確保應用程式已在本機運行，並解決任何潛在的錯誤。
+1. 確保應用程式已照上述步驟在本機成功運行測試環境，並解決任何潛在的錯誤。
 1. 開啟 Teams Toolkit，選擇 **Provision**（佈建）於生命周期區塊下，此動作會在 Azure 中建立必要的資源。 \
     <img src="images/teams-toolkit-lifecycle.png" alt="teams-toolkit-lifecycle" height="300">
 1. 選擇 **Deploy**（部署）於生命周期區塊下，將應用程式部署至 Azure。
@@ -45,23 +46,29 @@
     <img src="images/install-app.png" alt="install-app" width="500">
 > 如果您修改了原始碼，請重新點擊 **Deploy** 以將變更部署至 Azure。
 
-## 在 Teams 與 Microsoft 365 Copilot 測試應用程式
-
-前往 Microsoft 365 Copilot 聊天介面。在介面右上角，您應能看到 Expert Finder 作為代理。點擊並開始使用 Expert Finder 外掛程式。
-
 #### 使用 SSO 驗證與授權彈窗
+
 首次使用時，會彈出登入視窗，完成 SSO 後，即可正常使用。
 
-#### 在 Copilot 中依技能與國家搜尋
+## 在 Teams 與 Microsoft 365 Copilot 使用應用程式
+
+前往 Microsoft 365 Copilot 聊天介面。在介面右上角，您可以看到 Expert Finder 代理程式。點擊並開始使用 Expert Finder。
+![Plugin](images/copilot-demo.gif)
+
+
+#### 在 Copilot 中依技能與辦公室地點搜尋
+
 以下是一些範例提示：
 1. `Find experts with skill in Azure.`
-2. `Find experts with skill in React and who are from Taipei.`
+2. `Find experts with skill in Python and who are from Taipei.`
 3. `Find experts with skill in Azure and available for interview.`
 
 #### 在聊天中嘗試訊息擴充功能
+
 ![Plugin](images/message-extension-demo.gif)
 
 ## 疑難排解
+
 1. 如果部署應用程式後遇到任何錯誤，可在 Azure App Services 中查看錯誤日誌。首先，您需要啟用 Azure 網頁應用程式的日誌流。
     - 前往 Web App 的 **監控 > 應用程式服務日誌**。
     - 啟用 **應用程式日誌（檔案系統）** 並點擊 **儲存**。
@@ -79,8 +86,8 @@
 
 ## 延伸閱讀
 
-- [Microsoft 365 Copilot 訊息擴充功能](https://learn.microsoft.com/en-us/microsoft-365-copilot/extensibility/overview-message-extension-bot)
-- [開始使用 Microsoft Graph](https://developer.microsoft.com/en-us/graph)
+- [Message extensions for Microsoft Copilot for Microsoft 365](https://learn.microsoft.com/en-us/microsoft-365-copilot/extensibility/overview-message-extension-bot)
+- [Get started with Microsoft Graph](https://developer.microsoft.com/en-us/graph)
 
 
 <img src="https://pnptelemetry.azurewebsites.net/microsoft-teams-samples/samples/msgext-expert-finder-js" />
