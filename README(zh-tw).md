@@ -46,17 +46,20 @@
     <img src="images/install-app.png" alt="install-app" width="500">
 > 如果您修改了原始碼，請重新點擊 **Deploy** 以將變更部署至 Azure。
 
-#### 使用 SSO 驗證與授權彈窗
 
-首次使用時，會彈出登入視窗，完成 SSO 後，即可正常使用。
 
 ## 在 Teams 與 Microsoft 365 Copilot 使用應用程式
 
 前往 Microsoft 365 Copilot 聊天介面。在介面右上角，您可以看到 Expert Finder 代理程式。點擊並開始使用 Expert Finder。
-![Plugin](images/copilot-demo.gif)
 
+#### 使用 SSO 驗證與授權彈窗
+
+首次使用時，會彈出登入視窗，完成 SSO 後，即可正常使用。
 
 #### 在 Copilot 中依技能與辦公室地點搜尋
+
+![Plugin](images/copilot-demo.gif)
+
 
 以下是一些範例提示：
 1. `Find experts with skill in Azure.`
