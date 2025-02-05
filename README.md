@@ -31,16 +31,16 @@ This sample demonstrates a Teams message extension integrated with Microsoft Cop
 1. Navigate to the `expert-finder` folder and open it with Visual Studio Code.
 1. Select **File > Open Folder** in VS Code and choose this samples directory from the repo.
 1. Using the extension, sign in with your Azure account and Microsoft 365 account where you have permissions to upload custom apps. \
-    <img src="images/account-login-1.png" alt="account-login" height="300"> ⮕
-    <img src="images/account-login-2.png" alt="account-login" height="300">
+    <img src="images/account-login-1.png" alt="account-login" height="400"> ⮕
+    <img src="images/account-login-2.png" alt="account-login" height="400">
 1. Select **Debug > Start Debugging** to run the app in a Teams web client. Once the debugging process starts, your default browser will open and navigate to the Teams web client, allowing you to test the application. \
-    <img src="images/debug-in-Teams.png" alt="debug-in-teams" height="300">
+    <img src="images/debug-in-Teams.png" alt="debug-in-teams" height="400">
 
 ## Deploy the app to Azure
 
 1. Ensure the application is running locally to identify and resolve any potential bugs before proceeding.
 1. Open the Teams Toolkit and select **Provision** under the Lifecycle section. This action will create the required resources in your Azure environment. \
-    <img src="images/teams-toolkit-lifecycle.png" alt="teams-toolkit-lifecycle" height="300">
+    <img src="images/teams-toolkit-lifecycle.png" alt="teams-toolkit-lifecycle" height="400">
 1. Select **Deploy** under the Lifecycle section. This action will deploy the base folder to Azure. 
 1. Select **Publish** under the Lifecycle section. This action will publish the application to Teams admin center.
 1. Navigate to the [**Teams admin center**](https://admin.teams.microsoft.com/) and approve the app.
@@ -59,7 +59,8 @@ On first use, a window requesting for Sign In pops-up and once SSO is completed,
 
 #### Search based on skills and country in Copilot
 
-![Plugin](images/m365-copilot-demo.gif)
+<img src="images/m365-copilot-demo.gif" alt="Plugin" height="600">
+
 
 Here are some sample prompts you can try : 
 1) `Find experts with skill in Azure.`
@@ -68,7 +69,8 @@ Here are some sample prompts you can try :
 
 #### Try out message extension in chat
 
-![Plugin](images/teams-message-extension-demo.gif)
+<img src="images/teams-message-extension-demo.gif" alt="Plugin" height="600">
+
 
 
 ## Troubleshooting
@@ -77,16 +79,16 @@ Here are some sample prompts you can try :
     - Navigate to Web App **Monitoring** > **App Service Logs**.
     - Enable **Application logging (Filesystem)** and click **Save**. 
     - You will then be able to see the log of the web app in **log stream**. \
-        <img src="images/enable-error-log.png" alt="enable-error-log" height="300">
+        <img src="images/enable-error-log.png" alt="enable-error-log" height="400">
 1. If custom app uploaded is disabled, you can either use [Microsoft 365 development account](https://learn.microsoft.com/en-us/office/developer-program/microsoft-365-developer-program) or contact your tenant administrator to turn on the upload custom app permission for your organization. Below are the steps to enable permission as a Teams admin:
     - When the custom app upload is disabled, the following error is displayed: \
         <img src="images/custom-app-disabled.png" alt="custom-app-disabled" >
     -  Go to the [**Teams admin center**](https://admin.teams.microsoft.com/).
     -  Navigate to **Teams apps** > **Permission policies**.
     -  Click on **Global (Org-wide app default)**. \
-        <img src="images/teams-app-upload-permission-1.png" alt="teams-app-upload-permission" height="300">
+        <img src="images/teams-app-upload-permission-1.png" alt="teams-app-upload-permission" height="400">
     -  Enable **Upload custom app**. \
-        <img src="images/teams-app-upload-permission-2.png" alt="teams-app-upload-permission" height="300">
+        <img src="images/teams-app-upload-permission-2.png" alt="teams-app-upload-permission" height="400">
 
 ## Further reading
 
