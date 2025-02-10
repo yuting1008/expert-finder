@@ -75,7 +75,7 @@
 
 #### 在 Copilot 中依技能與辦公室地點搜尋
 
-<img src="images/m365-copilot-demo.gif" alt="Plugin" height="600">
+<img src="images/copilot-demo.gif" alt="Plugin" height="600">
 
 
 
