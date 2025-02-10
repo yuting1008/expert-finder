@@ -25,8 +25,10 @@
         <img src="images/teams-app-upload-permission-1.png" alt="teams-app-upload-permission" height="400">
     - 啟用上傳自訂應用程式。 \
         <img src="images/teams-app-upload-permission-2.png" alt="teams-app-upload-permission" height="400">
-    - 前往 Teams 應用程式 > 管理應用程式 > 操作 > 組織範圍的應用程式設定。
-    - 啟用「允許上傳自訂應用程式供個人使用」。
+    - 前往 Teams 應用程式 > 管理應用程式 > 操作 > 組織範圍的應用程式設定。 \
+        <img src="images/manage-app.png" alt="teams-app-upload-permission" height="400">
+    - 啟用「允許上傳自訂應用程式供個人使用」。 \
+        <img src="images/org-wide-app-settings.png" alt="teams-app-upload-permission" height="400">
 
 
 ## 本機設定與執行範例
