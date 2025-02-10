@@ -74,7 +74,7 @@ On first use, a window requesting for Sign In pops-up and once SSO is completed,
 
 #### Search based on skills and country in Copilot
 
-<img src="images/m365-copilot-demo.gif" alt="Plugin" height="600">
+<img src="images/copilot-demo.gif" alt="Plugin" height="600">
 
 
 Here are some sample prompts you can try : 
