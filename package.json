@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@microsoft/adaptivecards-tools": "^1.3.3",
+    "@microsoft/teams-ai": "^1.7.2",
     "@microsoft/teamsfx": "^3.0.0",
     "adaptivecards": "^3.0.4",
     "azure-storage": "^2.10.7",
