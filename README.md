@@ -25,7 +25,9 @@ This sample demonstrates a Teams message extension integrated with Microsoft Cop
     - Click on **Global (Org-wide app default)**. \
         <img src="images/teams-app-upload-permission-1.png" alt="teams-app-upload-permission" height="400">
     - Enable **Upload custom app**. \
-        <img src="images/teams-app-upload-permission-2.png" alt="teams-app-upload-permission" height="400"> 
+        <img src="images/teams-app-upload-permission-2.png" alt="teams-app-upload-permission" height="400">
+    - Go to Teams apps > Manage apps > Actions > Org-wide app settings.
+    - Turn on the Upload custom apps for personal use toggle.
 
 
 ## Setup and run the sample locally
