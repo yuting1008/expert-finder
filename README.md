@@ -8,8 +8,7 @@ This sample demonstrates a Teams message extension integrated with Microsoft Cop
 - [Prerequisites](#prerequisites)
 - [Setup and run the sample locally](#setup-and-run-the-sample-locally)
 - [Deploy the app to Azure](#deploy-the-app-to-azure)
-- [Test the app in Teams and Copilot for Microsoft 365](#use-the-app-in-teams-and-copilot-for-microsoft-365)
-- [Troubleshooting](#troubleshooting)
+- [Use the app in Teams and Copilot for Microsoft 365](#use-the-app-in-teams-and-copilot-for-microsoft-365)
 - [Further reading](#further-reading)
 
 ## Prerequisites
@@ -17,7 +16,16 @@ This sample demonstrates a Teams message extension integrated with Microsoft Cop
 - [Node.js 18.x](https://nodejs.org/download/release/v18.18.2/)
 - [Visual Studio Code](https://code.visualstudio.com/)
 - [Teams Toolkit](https://marketplace.visualstudio.com/items?itemName=TeamsDevApp.ms-teams-vscode-extension)
-- You will need a Microsoft work or school account with [permissions to upload custom Teams applications](https://learn.microsoft.com/microsoftteams/platform/concepts/build-and-test/prepare-your-o365-tenant#enable-custom-teams-apps-and-turn-on-custom-app-uploading). The account will also need a Microsoft Copilot for Microsoft 365 license to use the extension in Copilot.
+- An Azure account. The required resources will later built in this environment.
+- A Microsoft 365 work or school account with **Copilot for Microsoft 365 license** and the [**permissions to upload custom Teams applications**](https://learn.microsoft.com/microsoftteams/platform/concepts/build-and-test/prepare-your-o365-tenant#enable-custom-teams-apps-and-turn-on-custom-app-uploading). If the permission is disabled, you can either use [Microsoft 365 development account](https://learn.microsoft.com/en-us/office/developer-program/microsoft-365-developer-program) or contact your tenant administrator to turn on the upload custom app permission for your organization. Below are the steps to enable permission as a Teams admin:
+    - When the custom app upload is disabled, the following error is displayed: \
+        <img src="images/custom-app-disabled.png" alt="custom-app-disabled" >
+    - Go to the [**Teams admin center**](https://admin.teams.microsoft.com/).
+    - Navigate to **Teams apps** > **Permission policies**.
+    - Click on **Global (Org-wide app default)**. \
+        <img src="images/teams-app-upload-permission-1.png" alt="teams-app-upload-permission" height="400">
+    - Enable **Upload custom app**. \
+        <img src="images/teams-app-upload-permission-2.png" alt="teams-app-upload-permission" height="400"> 
 
 
 ## Setup and run the sample locally
@@ -41,13 +49,16 @@ This sample demonstrates a Teams message extension integrated with Microsoft Cop
 1. Ensure the application is running locally to identify and resolve any potential bugs before proceeding.
 1. Open the Teams Toolkit and select **Provision** under the Lifecycle section. This action will create the required resources in your Azure environment. \
     <img src="images/teams-toolkit-lifecycle.png" alt="teams-toolkit-lifecycle" height="400">
-1. Select **Deploy** under the Lifecycle section. This action will deploy the base folder to Azure. 
+1. Select **Deploy** under the Lifecycle section. This action will deploy the base folder to Azure.
 1. Select **Publish** under the Lifecycle section. This action will publish the application to Teams admin center.
 1. Navigate to the [**Teams admin center**](https://admin.teams.microsoft.com/) and approve the app.
-1. Open your Teams app store and install the app. \
+1. Open your Teams app store and install the app. And now you can refer the [next section](#use-the-app-in-teams-and-copilot-for-microsoft-365) to use the app.\
     <img src="images/install-app.png" alt="install-app" width="500">
+1. If you encounter any errors when using the app, you can check the error log on Azure App Services. Navigate to the Web App you provisioned in Azure. Click **Monitoring** > **App Service Logs**.
+1. Enable **Application logging (Filesystem)** and click **Save**. 
+1. You will then be able to see the log of the web app in **log stream**. \
+   <img src="images/enable-error-log.png" alt="enable-error-log" height="400">
 > If you make any changes to the source code, click **Deploy** again to apply the changes to the deployed app.
-    
 
 ## Use the app in Teams and Copilot for Microsoft 365
 
@@ -70,25 +81,6 @@ Here are some sample prompts you can try :
 #### Try out message extension in chat
 
 <img src="images/teams-message-extension-demo.gif" alt="Plugin" height="600">
-
-
-
-## Troubleshooting
-
-1. If you encounter any errors after deploying the app, you can check the error log on Azure App Services. First, you need to enable the Azure web app log stream. 
-    - Navigate to Web App **Monitoring** > **App Service Logs**.
-    - Enable **Application logging (Filesystem)** and click **Save**. 
-    - You will then be able to see the log of the web app in **log stream**. \
-        <img src="images/enable-error-log.png" alt="enable-error-log" height="400">
-1. If custom app uploaded is disabled, you can either use [Microsoft 365 development account](https://learn.microsoft.com/en-us/office/developer-program/microsoft-365-developer-program) or contact your tenant administrator to turn on the upload custom app permission for your organization. Below are the steps to enable permission as a Teams admin:
-    - When the custom app upload is disabled, the following error is displayed: \
-        <img src="images/custom-app-disabled.png" alt="custom-app-disabled" >
-    -  Go to the [**Teams admin center**](https://admin.teams.microsoft.com/).
-    -  Navigate to **Teams apps** > **Permission policies**.
-    -  Click on **Global (Org-wide app default)**. \
-        <img src="images/teams-app-upload-permission-1.png" alt="teams-app-upload-permission" height="400">
-    -  Enable **Upload custom app**. \
-        <img src="images/teams-app-upload-permission-2.png" alt="teams-app-upload-permission" height="400">
 
 ## Further reading
 
